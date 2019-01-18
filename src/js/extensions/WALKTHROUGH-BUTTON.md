@@ -3,13 +3,14 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [HighlighterButton](#highlighterbutton)
-  - [1. Define the Extension](#1-define-the-extension)
-  - [2. Create and Display a Button](#2-create-and-display-a-button)
-  - [3. Improve Appearance](#3-improve-appearance)
-  - [4. Handle Button Click](#4-handle-button-click)
-  - [5. Respond to Selection](#5-respond-to-selection)
-  - [6. Leverage Existing Button Code](#6-leverage-existing-button-code)
+- [Walkthrough - Building a Button](#walkthrough---building-a-button)
+  - [HighlighterButton](#highlighterbutton)
+    - [1. Define the Extension](#1-define-the-extension)
+    - [2. Create and Display a Button](#2-create-and-display-a-button)
+    - [3. Improve Appearance](#3-improve-appearance)
+    - [4. Handle Button Click](#4-handle-button-click)
+    - [5. Respond to Selection](#5-respond-to-selection)
+    - [6. Leverage Existing Button Code](#6-leverage-existing-button-code)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

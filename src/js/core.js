@@ -839,6 +839,10 @@
                 case 'autoLink':
                     extension = new MediumEditor.extensions.autoLink();
                     break;
+                case 'emotion-highlighter':
+                    merged = MediumEditor.util.extend({}, this.options.emotionHighlighter, opts);
+                    extension = new MediumEditor.extensions.emotionHighlighter(merged);
+                    break;
                 case 'fileDragging':
                     extension = new MediumEditor.extensions.fileDragging(opts);
                     break;

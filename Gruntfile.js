@@ -24,6 +24,7 @@ module.exports = function (grunt) {
             'src/js/extensions/anchor.js',
             'src/js/extensions/anchor-preview.js',
             'src/js/extensions/auto-link.js',
+            'src/js/extensions/emotion-highlighter.js',
             'src/js/extensions/file-dragging.js',
             'src/js/extensions/keyboard-commands.js',
             'src/js/extensions/fontname.js',
@@ -322,6 +323,15 @@ module.exports = function (grunt) {
         }
     };
 
+    gruntConfig.copy = {
+        main: {
+            expand: true,
+            flatten: true,
+            src: 'src/lib/*.js',
+            dest: 'dist/js/'
+        }
+    };
+
     grunt.initConfig(gruntConfig);
 
     require('time-grunt')(grunt);
@@ -342,7 +352,8 @@ module.exports = function (grunt) {
     grunt.registerTask('sauce', ['connect', 'saucelabs-jasmine']);
     grunt.registerTask('js', ['jshint', 'jscs', 'concat', 'jasmine:suite', 'uglify']);
     grunt.registerTask('css', ['sass', 'autoprefixer', 'cssmin', 'csslint']);
-    grunt.registerTask('default', ['js', 'css']);
+    grunt.registerTask('lib', ['copy']);
+    grunt.registerTask('default', ['js', 'css', 'lib']);
 
     grunt.registerTask('spec', 'Runs a task on a specified file', function (taskName, fileName) {
         globalConfig.file = fileName;

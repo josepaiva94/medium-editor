@@ -37,6 +37,10 @@
         margin: 0 10px;
         text-decoration: none;
     }
+    
+    button > b {
+        pointer-events: none;
+    }
 }
 
 .medium-editor-toolbar-form-active {
