@@ -90,7 +90,8 @@ $medium-editor-placeholder-color: #fff;
     }
 }
 
-.medium-editor-toolbar-anchor-preview {
+.medium-editor-toolbar-anchor-preview,
+.medium-editor-toolbar-emotion-preview {
     background: $medium-editor-bgcolor;
     border-radius: $medium-editor-border-radius;
     color: $medium-editor-link-color;

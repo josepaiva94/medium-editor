@@ -76,7 +76,8 @@ $medium-editor-border-radius: 2px;
     }
 }
 
-.medium-editor-toolbar-anchor-preview {
+.medium-editor-toolbar-anchor-preview,
+.medium-editor-toolbar-emotion-preview {
     background: $medium-editor-bgcolor;
     color: $medium-editor-link-color;
     border-radius: $medium-editor-border-radius;

@@ -45,7 +45,8 @@
   .medium-editor-toolbar-form a {
     color: #40648a; }
 
-.medium-editor-toolbar-anchor-preview {
+.medium-editor-toolbar-anchor-preview,
+.medium-editor-toolbar-emotion-preview {
   background: #dee7f0;
   color: #40648a;
   border-radius: 2px; }

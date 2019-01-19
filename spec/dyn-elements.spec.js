@@ -60,7 +60,7 @@ describe('MediumEditor.DynamicElements TestCase', function () {
 
             // Instatiating editor will trigger adding event handlers to each element
             expect(this.el.listenerInfo.length).toBe(0);
-            var editor = this.newMediumEditor('.editor', { anchorPreview: false });
+            var editor = this.newMediumEditor('.editor', { anchorPreview: false, emotionPreview: false });
             expect(this.el.listenerInfo.length).not.toBe(0);
             var listenerCount = this.el.listenerInfo.length;
             editor.subscribe('editableBlur', function blurHandler () { });

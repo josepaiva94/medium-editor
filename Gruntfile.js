@@ -25,6 +25,7 @@ module.exports = function (grunt) {
             'src/js/extensions/anchor-preview.js',
             'src/js/extensions/auto-link.js',
             'src/js/extensions/emotion-highlighter.js',
+            'src/js/extensions/emotion-preview.js',
             'src/js/extensions/file-dragging.js',
             'src/js/extensions/keyboard-commands.js',
             'src/js/extensions/fontname.js',

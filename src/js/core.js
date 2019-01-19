@@ -335,6 +335,15 @@
         return this.options.anchorPreview !== false;
     }
 
+    function isEmotionPreviewEnabled() {
+        // If toolbar is disabled, don't add
+        if (!isToolbarEnabled.call(this)) {
+            return false;
+        }
+
+        return this.options.emotionPreview !== false;
+    }
+
     function isPlaceholderEnabled() {
         return this.options.placeholder !== false;
     }
@@ -517,6 +526,7 @@
         var builtIns = {
             paste: true,
             'anchor-preview': isAnchorPreviewEnabled.call(this),
+            'emotion-preview': isEmotionPreviewEnabled.call(this),
             autoLink: isAutoLinkEnabled.call(this),
             keyboardCommands: isKeyboardCommandsEnabled.call(this),
             placeholder: isPlaceholderEnabled.call(this)
@@ -842,6 +852,9 @@
                 case 'emotion-highlighter':
                     merged = MediumEditor.util.extend({}, this.options.emotionHighlighter, opts);
                     extension = new MediumEditor.extensions.emotionHighlighter(merged);
+                    break;
+                case 'emotion-preview':
+                    extension = new MediumEditor.extensions.emotionPreview(this.options.emotionPreview);
                     break;
                 case 'fileDragging':
                     extension = new MediumEditor.extensions.fileDragging(opts);

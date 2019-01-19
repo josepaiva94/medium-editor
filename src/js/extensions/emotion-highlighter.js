@@ -5,11 +5,13 @@
 
         name: 'emotion-highlighter',
 
-        aria: 'emotion-highlighter',
+        aria: 'Emotion Highlighter',
         action: 'emotion-highlight',
         tagNames: ['mark'],
         contentDefault: '<b>EMOTION</b>',
-        contentFA: '<i class="fa fa-smile"></i><i class="fa fa-meh"></i><i class="fa fa-frown"></i>',
+        contentFA: '<i class="fa fa-smile-o" style="font-size:24px;letter-spacing:4px;"></i>' +
+                   '<i class="fa fa-meh-o" style="font-size:24px;letter-spacing:4px;"></i>' +
+                   '<i class="fa fa-frown-o" style="font-size:24px;"></i>',
 
         emotions: {
             'levels': ['global', 'intermediate', 'specific'],
@@ -268,6 +270,8 @@
                 this.showForm();
             }
 
+            this.setToolbarPosition();
+
             return false;
         },
 
@@ -291,7 +295,7 @@
 
             for (var i = 0; i < emotionsKeys.length; i++) {
                 var emotion = emotionsKeys[i],
-                    readableName = emotion.toUpperCase().replace(/_/g, ' '),
+                    readableName = this._getEmotionLabel(emotion, this._selection),
                     classNames = 'medium-editor-action medium-editor-action-emotion';
 
                 if (i === 0) { // is first?
@@ -327,7 +331,7 @@
         },
 
         showForm: function (opts) {
-            opts = opts || { value: '' };
+            opts = opts || { selection: [] };
             // TODO: This is for backwards compatability
             // We don't need to support the 'string' argument in 6.0.0
             if (typeof opts === 'string') {
@@ -346,6 +350,7 @@
             }
 
             MediumEditor.extensions.form.prototype.showForm.apply(this);
+
             this.setToolbarPosition();
         },
 
@@ -368,12 +373,8 @@
             // no notion of private functions? wanted `_getFormOpts`
 
             var opts = {
-                emotion: {}
-            },
-                levels = this.emotions.levels;
-            for (var i = 0; i < levels.length; i++) {
-                opts.emotion[levels[i]] = this._selection[i];
-            }
+                selection: this._selection.slice()
+            };
 
             return opts;
         },
@@ -386,12 +387,16 @@
         completeFormSave: function (opts) {
             this.base.restoreSelection();
 
-            var elementAttrs = {};
-            Object.keys(opts.emotion).forEach(function (level) {
-                if (opts.emotion[level]) {
-                    elementAttrs['data-' + level] = opts.emotion[level];
-                }
-            });
+            var elementAttrs = {},
+                labels = [];
+
+            for (var i = 0; i < opts.selection.length; i++) {
+                var emotion = opts.selection[i];
+                elementAttrs['data-' + this.emotions.levels[i]] = emotion;
+                labels.push(this._getEmotionLabel(emotion, opts.selection.slice(0, i)));
+            }
+
+            elementAttrs['data-preview'] = labels.join(' > ');
 
             rangy.createClassApplier('emotion-highlight', { // jshint ignore:line
                 elementTagName: 'mark',
@@ -487,14 +492,18 @@
             event.stopPropagation();
         },
 
-        _getCurrentSelectedEmotionObj: function () {
+        _getEmotionObj: function (levels) {
             var emotion = Object.assign({}, this.emotions);
-            for (var i = 0; i < this._selection.length; i++) {
-                var emotionKey = this._selection[i];
+            for (var i = 0; i < levels.length; i++) {
+                var emotionKey = levels[i];
                 emotion = emotion.emotions[emotionKey];
             }
 
             return emotion;
+        },
+
+        _getCurrentSelectedEmotionObj: function () {
+            return this._getEmotionObj(this._selection);
         },
 
         _resetForm: function () {
@@ -510,6 +519,7 @@
             this.emotions.levels.forEach(function (level) {
                 elementAttrs['data-' + level] = el.getAttribute('data-' + level);
             });
+            elementAttrs['data-preview'] = el.getAttribute('data-preview');
 
             rangy.createClassApplier('emotion-highlight', { // jshint ignore:line
                 elementTagName: 'mark',
@@ -520,6 +530,26 @@
             // Ensure the editor knows about an html change so watchers are notified
             // ie: <textarea> elements depend on the editableInput event to stay synchronized
             this.base.checkContentChanged();
+        },
+
+        _getEmotionLabel: function (emotion, parents) {
+
+            if (!parents) {
+                parents = [];
+            }
+
+            var levels = parents.slice();
+            levels.push(emotion);
+
+            var emotionObj = this._getEmotionObj(levels);
+
+            return emotionObj.label || this._toTitle(emotion);
+        },
+
+        _toTitle: function (str) {
+            return str.replace(/_/g, ' ').replace(/\w\S*/g, function (txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
         }
     });
 

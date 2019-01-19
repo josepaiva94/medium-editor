@@ -100,14 +100,16 @@ $medium-editor-placeholder-color: #f8f5f3;
     }
 }
 
-.medium-editor-toolbar-anchor-preview {
+.medium-editor-toolbar-anchor-preview,
+.medium-editor-toolbar-emotion-preview {
     background: $medium-editor-bgcolor;
     border-radius: $medium-editor-border-radius;
     padding: 5px 12px;
 }
 
-.medium-editor-anchor-preview {
-  a {
+.medium-editor-anchor-preview,
+.medium-editor-emotion-preview {
+  a, span {
     color: $medium-editor-link-color;
     text-decoration: none;
   }

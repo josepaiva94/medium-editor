@@ -1,0 +1,24 @@
+.medium-editor-emotion-preview {
+    font-family: $font-sans-serif;
+    font-size: 16px;
+    left: 0;
+    line-height: 1.4;
+    max-width: 320px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    word-break: break-all;
+    word-wrap: break-word;
+    visibility: hidden;
+    z-index: $z-toolbar;
+
+    span {
+        color: #fff;
+        display: inline-block;
+        margin: 10px;
+    }
+}
+
+.medium-editor-emotion-preview-active {
+    visibility: visible;
+}
